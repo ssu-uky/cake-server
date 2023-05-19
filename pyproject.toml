@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "cake-server"
+version = "0.1.0"
+description = ""
+authors = ["ssu-uky <id_suhyun@naver.com>"]
+readme = "README.md"
+packages = [{include = "cake_server"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "^4.2.1"
+djangorestframework = "^3.14.0"
+djangorestframework-simplejwt = "^5.2.2"
+django-colorfield = "^0.8.0"
+django-environ = "^0.10.0"
+requests = "^2.30.0"
+bcrypt = "^4.0.1"
+django-cors-headers = "^4.0.0"
+axios = "^0.4.0"
+psycopg2-binary = "^2.9.6"
+gunicorn = "^20.1.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
