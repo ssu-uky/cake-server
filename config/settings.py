@@ -164,26 +164,21 @@ CORS_ORIGIN_ALLOW = True
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
     "http://localhost:3000",
-    "http://www.neokkukae.store",
-    "http://neokkukae.store",
-    "https://www.neokkukae.store",
-    "https://neokkukae.store",
-    "https://manage.neokkukae.store",
-    "https://www.manage.neokkukae.store",
+    "http://naekkukae.store",
+    "https://naekkukae.store",
+    "http://www.naekkukae.store",
+    "https://www.naekkukae.store",
 ]
 CSRF_TRUSTED_ORIGINS = [
     "http://127.0.0.1:3000",
     "http://localhost:3000",
-    "http://www.neokkukae.store",
-    "http://neokkukae.store",
-    "https://www.neokkukae.store",
-    "https://neokkukae.store",
-    "https://manage.neokkukae.store",
-    "https://www.manage.neokkukae.store",
+    "http://naekkukae.store",
+    "https://naekkukae.store",
+    "http://www.naekkukae.store",
+    "https://www.naekkukae.store",
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
-
 
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
@@ -191,7 +186,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        'rest_framework.authentication.TokenAuthentication',
+        "rest_framework.authentication.TokenAuthentication",
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
@@ -243,7 +238,6 @@ STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 
-
 ## 이메일 인증 시작 ##
 
 KAKAO_REST_API_KEY = env("KAKAO_REST_API_KEY")
@@ -266,7 +260,11 @@ ACCOUNT_EMAIL_ON_GET = True  # 이메일 인증시 이메일을 보내줌
 ACCOUNT_EMAIL_SUBJECT_PREFIX = "[회원가입 이메일 인증] "  # 이메일에 자동으로 표시되는 제목
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True  # 유저가 받은 링크를 클릭하면 회원가입 완료
 
-URL_FRONT = "http://127.0.0.1:3000"  # 프론트 주소
+URL_FRONT = (
+    "http://127.0.0.1:3000",
+    "http://naekkukae.store",
+    "https://naekkukae.store",
+)  # 프론트 주소
 
 ## 이메일 인증 끝 ##
 
