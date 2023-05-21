@@ -89,13 +89,11 @@ class Mypage(APIView):
 
 # 카카오 로그인
 # http://127.0.0.1:8000/api/users/signin/kakao/
-# 카카오 로그인
-# http://127.0.0.1:8000/api/users/signin/kakao/
 class KakaoSignView(APIView):
     def get(self, request):
         client_id = KAKAO_REST_API_KEY
-        redirect_uri = "http://127.0.0.1:8000/auth/kakao/callback"
-        # redirect_uri = "https://manage.neokkukae.store/auth/kakao/callback"
+        # redirect_uri = "http://127.0.0.1:8000/auth/kakao/callback"
+        redirect_uri = "https://manage.naekkukae.store/auth/kakao/callback"
         return redirect(
             f"https://kauth.kakao.com/oauth/authorize?client_id={client_id}&redirect_uri={redirect_uri}&response_type=code"
         )
@@ -107,7 +105,8 @@ class KakaoCallbackView(APIView):
             code = request.GET.get("code")
             client_id = KAKAO_REST_API_KEY
             # redirect_uri = "https://manage.neokkukae.store/auth/kakao/callback"
-            redirect_uri = "http://127.0.0.1:8000/auth/kakao/callback"
+            # redirect_uri = "http://127.0.0.1:8000/auth/kakao/callback"
+            redirect_uri = "https://manage.naekkukae.store/auth/kakao/callback"
             token_request = requests.post(
                 "https://kauth.kakao.com/oauth/token",
                 data={
