@@ -144,11 +144,9 @@ class KakaoCallbackView(APIView):
             kakao_user = User.objects.get(email=email)
             tokens = RefreshToken.for_user(kakao_user)
             response = HttpResponseRedirect(
-                # f"https://neokkukae.store/KakaoLogin?refresh={str(tokens)}&access={str(tokens.access_token)}"
-                # f"https://neokkukae.store/KakaoLogin?refresh={str(tokens.refresh_token)}&access={str(tokens.access_token)}"
                 # f"http://127.0.0.1:3000/KakaoLogin?refresh={str(tokens.refresh_token)}&access={str(tokens.access_token)}"
                 # f"http://127.0.0.1:3000/KakaoLogin?refresh={str(tokens)}&access={str(tokens.access_token)}"
-                f"http://127.0.0.1:3000/KakaoLogin?refresh={str(tokens)}&access={str(tokens.access_token)}&user_pk={kakao_user.pk}"
+                f"https://naekkukae.store/KakaoLogin?refresh={str(tokens)}&access={str(tokens.access_token)}&user_pk={kakao_user.pk}"
             )
             return response
 
@@ -163,11 +161,9 @@ class KakaoCallbackView(APIView):
 
                 tokens = RefreshToken.for_user(user)
                 response = HttpResponseRedirect(
-                    # f"https://neokkukae.store/KakaoLogin?refresh={str(refresh_token)}&access={str(tokens.access_token)}"
-                    # f"https://neokkukae.store/KakaoLogin?refresh={str(tokens.refresh_token)}&access={str(tokens.access_token)}"
                     # f"http://127.0.0.1:3000/KakaoLogin?refresh={str(tokens.refresh_token)}&access={str(tokens.access_token)}"
                     # f"http://127.0.0.1:3000/KakaoLogin?refresh={str(refresh_token)}&access={str(tokens.access_token)}"
-                    f"http://127.0.0.1:3000/KakaoLogin?refresh={str(refresh_token)}&access={str(tokens.access_token)}&user_pk={user.pk}"
+                    f"https://naekkukae.store/KakaoLogin?refresh={str(refresh_token)}&access={str(tokens.access_token)}&user_pk={user.pk}"
                 )
                 # return Response(response, id, status=HTTP_200_OK)
                 return response
@@ -349,8 +345,8 @@ class EmailSignUp(APIView):
 
             # 이메일 인증메일 보내기
             # current_site = get_current_site(request).domain
-            current_site = "127.0.0.1:8000"
-            link = "http://" + current_site + "/verify/" + str(token)  # 이메일 인증 링크
+            current_site = "manage.naekkukae.store"
+            link = "https://" + current_site + "/verify/" + str(token)  # 이메일 인증 링크
             email_subject = "이메일 인증을 완료해주세요."
             email_body = (
                 "안녕하세요." + user.name + "님, 회원이 되어주셔서 감사합니다. \n아래 링크를 클릭하여 이메일 인증을 완료해주세요. \n" + link
@@ -420,8 +416,8 @@ class FindPassword(APIView):
                 )
 
             # 이메일에서 재설정 URL 생성
-            current_site = "127.0.0.1:3000"
-            reset_link = "http://" + current_site + "/login/resetpw/" + str(user.pk)
+            current_site = "naekkukae.store"
+            reset_link = "https://" + current_site + "/login/resetpw/" + str(user.pk)
             email_subject = "비밀번호 재설정 메일입니다."
             email_body = (
                 "안녕하세요."

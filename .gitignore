@@ -8,6 +8,8 @@
 __pycache__/
 local_settings.py
 
+caketable.pem
+
 # Environments
 my_settings/
 my_settings/__pycache__/
