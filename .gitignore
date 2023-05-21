@@ -281,4 +281,7 @@ staticfiles
 poetry.lock
 
 markdown.md
+
+nohup.out
+
 # End of https://www.toptal.com/developers/gitignore/api/python,django
