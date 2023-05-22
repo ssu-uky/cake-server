@@ -19,6 +19,8 @@ django-cors-headers = "^4.0.0"
 axios = "^0.4.0"
 psycopg2-binary = "^2.9.6"
 gunicorn = "^20.1.0"
+pymysql = "^1.0.3"
+mysqlclient = "^2.1.1"
 
 
 [build-system]

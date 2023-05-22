@@ -307,8 +307,6 @@ class Logout(APIView):
 
 
 # 이메일 회원가입 // 이메일 인증 ##
-
-
 class EmailSignUp(APIView):
     def get(self, request):
         return Response({"message": "이름, 이메일, 비밀번호를 입력해주세요."})
