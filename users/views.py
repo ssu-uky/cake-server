@@ -24,6 +24,7 @@ from .serializers import (
     MypageSerializer,
     LoginSerializer,
     SignupSerializer,
+    FeedbackSerializer,
 )
 
 from django.http import HttpResponseRedirect
@@ -458,3 +459,25 @@ class ResetPassword(APIView):
             return Response({"detail": "비밀번호가 변경되었습니다."}, status=HTTP_200_OK)
         else:
             raise ValidationError({"detail": "비밀번호를 올바르게 입력해주세요."})
+    
+
+
+class FeedbackView(APIView):
+    def post(self, request):
+        serializer = FeedbackSerializer(data=request.data)
+
+        feedback_user = request.user
+        feedback_email = request.data.get("feedback_email")
+        feedback_content = request.data.get("feedback_content")
+        feedback_password = request.data.get("feedback_password")
+
+        if serializer.is_valid():
+            feedback = serializer.save(
+                feedback_user=feedback_user,
+                feedback_email=feedback_email,
+                feedback_content=feedback_content,
+                feedback_password=feedback_password,
+            )
+            return Response(serializer.data, status=HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)

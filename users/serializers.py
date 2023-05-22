@@ -1,7 +1,7 @@
 import re
 from rest_framework.exceptions import ParseError, ValidationError
 from rest_framework import serializers 
-from .models import User
+from .models import User, FeedbackUser
 from caketables.models import UserTable, Visitor
 from django.contrib.auth.hashers import make_password
 from caketables.serializers import UserTableSerializer
@@ -94,3 +94,17 @@ class SignupSerializer(serializers.ModelSerializer):
         else:
             raise ParseError("비밀번호를 입력하세요.")
         return password
+
+
+class FeedbackSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FeedbackUser
+        fields = (
+            "pk",
+            "created_at",
+            "feedback_name",
+            "feedback_email",
+            "feedback_content",
+            "feedback_password",
+        )
+        read_only_fields = ("pk", "created_at")

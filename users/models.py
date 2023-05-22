@@ -2,6 +2,8 @@ from django.db import models
 from django.core.validators import MinLengthValidator
 from django.contrib.auth.models import AbstractUser
 from .manager import CustomUserManager
+from common.models import CommonModel
+from django.core.validators import RegexValidator
 
 
 class User(AbstractUser):
@@ -39,3 +41,26 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.name
+
+
+class FeedbackUser(CommonModel):
+    feedback_name = models.CharField(max_length=7, blank=False)
+    feedback_email = models.EmailField(blank=False)
+    feedback_content = models.TextField(max_length=50, blank=False)
+    feedback_password = models.CharField(
+        max_length=10,
+        null=False,
+        blank=False,
+        validators=[
+            RegexValidator(
+                regex=r"^[a-z0-9]+$",
+                message="영어 소문자와 숫자만 사용할 수 있습니다.",
+            ),
+        ],
+    )
+
+    def __str__(self):
+        return self.feedback_name
+
+    # def __str__(self):
+    #     return self.feedback_content
