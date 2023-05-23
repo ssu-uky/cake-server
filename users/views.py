@@ -1,6 +1,8 @@
 import requests
 import my_settings
 
+import re
+
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 
@@ -462,22 +464,39 @@ class ResetPassword(APIView):
     
 
 
-class FeedbackView(APIView):
-    def post(self, request):
-        serializer = FeedbackSerializer(data=request.data)
 
+class FeedbackView(APIView):
+    # permission_classes = [IsAdminUser]
+
+    def post(self, request):
         feedback_user = request.user
         feedback_email = request.data.get("feedback_email")
         feedback_content = request.data.get("feedback_content")
         feedback_password = request.data.get("feedback_password")
 
+        feedback_data = {
+            "feedback_user": feedback_user,
+            "feedback_email": feedback_email,
+            "feedback_content": feedback_content,
+            "feedback_password": feedback_password
+        }
+
+        serializer = FeedbackSerializer(data=feedback_data)
+
+        if not all(feedback_data.values()):
+            return Response({"error": "모든 필드를 작성해야 합니다."}, status=HTTP_400_BAD_REQUEST)
+
+        if not re.match(r"[^@]+@[^@]+\.[^@]+", feedback_email):
+            return Response({"error": "유효한 이메일을 입력해야 합니다."}, status=HTTP_400_BAD_REQUEST)
+
+        if not re.match(r"^(?=.*[a-z])(?=.*[0-9])[a-z0-9]+$", feedback_password):
+            return Response({"error": "암호는 소문자와 숫자 조합이어야 합니다."}, status=HTTP_400_BAD_REQUEST)
+
+
         if serializer.is_valid():
-            feedback = serializer.save(
-                feedback_user=feedback_user,
-                feedback_email=feedback_email,
-                feedback_content=feedback_content,
-                feedback_password=feedback_password,
-            )
+            saved_feedback = serializer.save()
             return Response(serializer.data, status=HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+
+

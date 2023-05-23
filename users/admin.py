@@ -42,25 +42,25 @@ class UserAdmin(admin.ModelAdmin):
     list_filter = ("social_type",)
 
 
+
 @admin.register(FeedbackUser)
 class FeedbackUserAdmin(admin.ModelAdmin):
-    class Meta:
-        model = FeedbackUser
-        fieldsets = (
-            (
-                "Feedback",
-                {
-                    "fields": (
-                        "feedback_name",
-                        "feedback_email",
-                        "feedback_content",
-                        "feedback_password",
-                    ),
-                    "classes": ("wide",),
-                },
-            ),
-        )
-
-        list_display = ("pk", "created_at", "feedback_name", "feedback_content")
-        list_display_links = ("pk", "created_at", "feedback_name", "feedback_content")
-        list_filter = ("created_at",)
+    fieldsets = (
+        (
+            "Feedback",
+            {
+                "fields": (
+                    "feedback_name",
+                    "feedback_email",
+                    "feedback_content",
+                    "feedback_password",
+                    "created_at",
+                ),
+                "classes": ("wide",),
+            },
+        ),
+    )
+    readonly_fields = ("created_at",)
+    list_display = ("pk", "feedback_name", "created_at","feedback_content")
+    list_display_links = ("pk", "created_at", "feedback_name", "feedback_content")
+    list_filter = ("created_at",)

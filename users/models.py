@@ -50,17 +50,10 @@ class FeedbackUser(CommonModel):
     feedback_password = models.CharField(
         max_length=10,
         null=False,
-        blank=False,
-        validators=[
-            RegexValidator(
-                regex=r"^[a-z0-9]+$",
-                message="영어 소문자와 숫자만 사용할 수 있습니다.",
-            ),
-        ],
+        blank=False
     )
+    
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.feedback_name
-
-    # def __str__(self):
-    #     return self.feedback_content
