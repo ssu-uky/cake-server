@@ -262,7 +262,7 @@ ACCOUNT_EMAIL_ON_GET = True  # 이메일 인증시 이메일을 보내줌
 ACCOUNT_EMAIL_SUBJECT_PREFIX = "[회원가입 이메일 인증] "  # 이메일에 자동으로 표시되는 제목
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True  # 유저가 받은 링크를 클릭하면 회원가입 완료
 
-URL_FRONT = (
+FRONT_URL = (
     "http://127.0.0.1:3000",
     "http://naekkukae.store",
     "https://naekkukae.store",

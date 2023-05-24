@@ -1,7 +1,7 @@
+import re
+
 import requests
 import my_settings
-
-import re
 
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
@@ -25,8 +25,7 @@ from .serializers import (
     UserListSerializer,
     MypageSerializer,
     LoginSerializer,
-    SignupSerializer,
-    FeedbackSerializer,
+    SignupSerializer,FeedbackSerializer,
 )
 
 from django.http import HttpResponseRedirect
@@ -92,6 +91,8 @@ class Mypage(APIView):
 
 # 카카오 로그인
 # http://127.0.0.1:8000/api/users/signin/kakao/
+# 카카오 로그인
+# http://127.0.0.1:8000/api/users/signin/kakao/
 class KakaoSignView(APIView):
     def get(self, request):
         client_id = KAKAO_REST_API_KEY
@@ -107,9 +108,8 @@ class KakaoCallbackView(APIView):
         try:
             code = request.GET.get("code")
             client_id = KAKAO_REST_API_KEY
-            # redirect_uri = "https://manage.neokkukae.store/auth/kakao/callback"
-            # redirect_uri = "http://127.0.0.1:8000/auth/kakao/callback"
             redirect_uri = "https://manage.naekkukae.store/auth/kakao/callback"
+            # redirect_uri = "http://127.0.0.1:8000/auth/kakao/callback"
             token_request = requests.post(
                 "https://kauth.kakao.com/oauth/token",
                 data={
@@ -146,6 +146,8 @@ class KakaoCallbackView(APIView):
             kakao_user = User.objects.get(email=email)
             tokens = RefreshToken.for_user(kakao_user)
             response = HttpResponseRedirect(
+                # f"https://neokkukae.store/KakaoLogin?refresh={str(tokens)}&access={str(tokens.access_token)}"
+                # f"https://neokkukae.store/KakaoLogin?refresh={str(tokens.refresh_token)}&access={str(tokens.access_token)}"
                 # f"http://127.0.0.1:3000/KakaoLogin?refresh={str(tokens.refresh_token)}&access={str(tokens.access_token)}"
                 # f"http://127.0.0.1:3000/KakaoLogin?refresh={str(tokens)}&access={str(tokens.access_token)}"
                 f"https://naekkukae.store/KakaoLogin?refresh={str(tokens)}&access={str(tokens.access_token)}&user_pk={kakao_user.pk}"
@@ -163,8 +165,11 @@ class KakaoCallbackView(APIView):
 
                 tokens = RefreshToken.for_user(user)
                 response = HttpResponseRedirect(
+                    # f"https://neokkukae.store/KakaoLogin?refresh={str(refresh_token)}&access={str(tokens.access_token)}"
+                    # f"https://neokkukae.store/KakaoLogin?refresh={str(tokens.refresh_token)}&access={str(tokens.access_token)}"
                     # f"http://127.0.0.1:3000/KakaoLogin?refresh={str(tokens.refresh_token)}&access={str(tokens.access_token)}"
                     # f"http://127.0.0.1:3000/KakaoLogin?refresh={str(refresh_token)}&access={str(tokens.access_token)}"
+                    # f"http://127.0.0.1:3000/KakaoLogin?refresh={str(refresh_token)}&access={str(tokens.access_token)}&user_pk={user.pk}"
                     f"https://naekkukae.store/KakaoLogin?refresh={str(refresh_token)}&access={str(tokens.access_token)}&user_pk={user.pk}"
                 )
                 # return Response(response, id, status=HTTP_200_OK)
@@ -310,6 +315,8 @@ class Logout(APIView):
 
 
 # 이메일 회원가입 // 이메일 인증 ##
+
+
 class EmailSignUp(APIView):
     def get(self, request):
         return Response({"message": "이름, 이메일, 비밀번호를 입력해주세요."})
@@ -345,6 +352,7 @@ class EmailSignUp(APIView):
 
             # 이메일 인증메일 보내기
             # current_site = get_current_site(request).domain
+            # current_site = "127.0.0.1:8000"
             current_site = "manage.naekkukae.store"
             link = "https://" + current_site + "/verify/" + str(token)  # 이메일 인증 링크
             email_subject = "이메일 인증을 완료해주세요."
@@ -461,21 +469,20 @@ class ResetPassword(APIView):
             return Response({"detail": "비밀번호가 변경되었습니다."}, status=HTTP_200_OK)
         else:
             raise ValidationError({"detail": "비밀번호를 올바르게 입력해주세요."})
-    
-
-
+        
+        
 
 class FeedbackView(APIView):
     # permission_classes = [IsAdminUser]
 
     def post(self, request):
-        feedback_user = request.user
+        feedback_name = request.data.get("feedback_name")
         feedback_email = request.data.get("feedback_email")
         feedback_content = request.data.get("feedback_content")
         feedback_password = request.data.get("feedback_password")
 
         feedback_data = {
-            "feedback_user": feedback_user,
+            "feedback_name": feedback_name,
             "feedback_email": feedback_email,
             "feedback_content": feedback_content,
             "feedback_password": feedback_password
