@@ -496,20 +496,17 @@ class FeedbackView(APIView):
         if not re.match(r"[^@]+@[^@]+\.[^@]+", feedback_email):
             return Response({"error": "유효한 이메일을 입력해야 합니다."}, status=HTTP_400_BAD_REQUEST)
 
-        if not re.match(r"^(?=.*[a-z])(?=.*[0-9])[a-z0-9]+$", feedback_password):
-            return Response({"error": "암호는 소문자와 숫자 조합이어야 합니다."}, status=HTTP_400_BAD_REQUEST)
-
 
         if serializer.is_valid():
             saved_feedback = serializer.save()
             
-            # 문의하기 내용이 들어오면 어드민한테 메일 보내기
-            subject = f"새로운 피드백이 도착했습니다: {feedback_name}"
-            message = f"피드백 내용: {feedback_content}"
-            from_email = feedback_email
-            admin_email = my_settings.EMAIL_HOST_USER
+            # # 문의하기 내용이 들어오면 어드민한테 메일 보내기
+            # subject = f"새로운 피드백이 도착했습니다: {feedback_name}"
+            # message = f"피드백 내용: {feedback_content}"
+            # from_email = my_settings.EMAIL_HOST_USER
+            # admin_email = my_settings.EMAIL_HOST_USER
             
-            send_mail(subject, message, from_email, admin_email)
+            # send_mail(subject, message, from_email, admin_email)
             
             
             return Response(serializer.data, status=HTTP_201_CREATED)
