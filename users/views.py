@@ -508,7 +508,7 @@ class FeedbackView(APIView):
             from_email = my_settings.EMAIL_HOST_USER
             admin_email = my_settings.EMAIL_HOST_USER
             
-            send_mail(subject, message, from_email, admin_email)
+            send_mail(subject, message, from_email, [admin_email])
             
             
             return Response(serializer.data, status=HTTP_201_CREATED)
