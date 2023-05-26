@@ -50,7 +50,6 @@ class FeedbackUserAdmin(admin.ModelAdmin):
             {
                 "fields": (
                     "feedback_name",
-                    "feedback_email",
                     "feedback_content",
                     "feedback_password",
                     "created_at",

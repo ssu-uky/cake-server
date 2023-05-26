@@ -473,17 +473,17 @@ class ResetPassword(APIView):
         
 
 class FeedbackView(APIView):
-    # permission_classes = [IsAdminUser]
+    permission_classes = [IsAuthenticated]
 
     def post(self, request):
         feedback_name = request.data.get("feedback_name")
-        feedback_email = request.data.get("feedback_email")
+        # feedback_email = request.data.get("feedback_email")
         feedback_content = request.data.get("feedback_content")
         feedback_password = request.data.get("feedback_password")
 
         feedback_data = {
             "feedback_name": feedback_name,
-            "feedback_email": feedback_email,
+            # "feedback_email": feedback_email,
             "feedback_content": feedback_content,
             "feedback_password": feedback_password
         }
@@ -493,8 +493,8 @@ class FeedbackView(APIView):
         if not all(feedback_data.values()):
             return Response({"error": "모든 필드를 작성해야 합니다."}, status=HTTP_400_BAD_REQUEST)
 
-        if not re.match(r"[^@]+@[^@]+\.[^@]+", feedback_email):
-            return Response({"error": "유효한 이메일을 입력해야 합니다."}, status=HTTP_400_BAD_REQUEST)
+        # if not re.match(r"[^@]+@[^@]+\.[^@]+", feedback_email):
+        #     return Response({"error": "유효한 이메일을 입력해야 합니다."}, status=HTTP_400_BAD_REQUEST)
 
 
         if serializer.is_valid():
