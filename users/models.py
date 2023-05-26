@@ -48,9 +48,9 @@ class User(AbstractUser):
 
 class FeedbackUser(CommonModel):
     feedback_name = models.CharField(max_length=7, blank=False)
-    feedback_email = models.EmailField(blank=False)
+    # feedback_email = models.EmailField(blank=False)
     feedback_content = models.TextField(max_length=50, blank=False)
-    feedback_password = models.CharField(max_length=10, blank=False)
+    feedback_password = models.CharField(max_length=8, blank=False)
     
     created_at = models.DateTimeField(auto_now_add=True)
 
