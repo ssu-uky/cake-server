@@ -50,6 +50,7 @@ class FeedbackUserAdmin(admin.ModelAdmin):
             {
                 "fields": (
                     "feedback_name",
+                    "feedback_email",
                     "feedback_content",
                     "feedback_password",
                     "created_at",
@@ -58,7 +59,7 @@ class FeedbackUserAdmin(admin.ModelAdmin):
             },
         ),
     )
-    readonly_fields = ("created_at",)
+    readonly_fields = ("created_at","feedback_email")
     list_display = ("pk", "feedback_name","feedback_content", "created_at")
     list_display_links = ("pk", "created_at", "feedback_name", "feedback_content")
     list_filter = ("created_at",)
