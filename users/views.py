@@ -480,10 +480,12 @@ class FeedbackView(APIView):
         # feedback_email = request.data.get("feedback_email")
         feedback_content = request.data.get("feedback_content")
         feedback_password = request.data.get("feedback_password")
+        
+        feedback_email = request.user.email
 
         feedback_data = {
             "feedback_name": feedback_name,
-            # "feedback_email": feedback_email,
+            "feedback_email": feedback_email,
             "feedback_content": feedback_content,
             "feedback_password": feedback_password
         }
@@ -500,13 +502,13 @@ class FeedbackView(APIView):
         if serializer.is_valid():
             saved_feedback = serializer.save()
             
-            # # 문의하기 내용이 들어오면 어드민한테 메일 보내기
-            # subject = f"새로운 피드백이 도착했습니다: {feedback_name}"
-            # message = f"피드백 내용: {feedback_content}"
-            # from_email = my_settings.EMAIL_HOST_USER
-            # admin_email = my_settings.EMAIL_HOST_USER
+            # 문의하기 내용이 들어오면 어드민한테 메일 보내기
+            subject = f"새로운 피드백이 도착했습니다: {feedback_name}"
+            message = f"피드백 내용: {feedback_content}"
+            from_email = my_settings.EMAIL_HOST_USER
+            admin_email = my_settings.EMAIL_HOST_USER
             
-            # send_mail(subject, message, from_email, admin_email)
+            send_mail(subject, message, from_email, admin_email)
             
             
             return Response(serializer.data, status=HTTP_201_CREATED)
