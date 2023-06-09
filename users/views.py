@@ -360,12 +360,6 @@ class EmailSignUp(APIView):
                 "안녕하세요." + user.name + "님, 회원이 되어주셔서 감사합니다. \n아래 링크를 클릭하여 이메일 인증을 완료해주세요. \n" + link
             )
 
-            # current_site = "http://127.0.0.1:3000/components/email"
-            # link = current_site + "?verify=" + str(token) # 이메일 인증 링크
-            # email_subject = "이메일 인증을 완료해주세요."
-            # email_body = (
-            #     "안녕하세요." + user.name + "님, 회원이 되어주셔서 감사합니다. \n아래 링크를 클릭하여 이메일 인증을 완료해주세요. \n" + link
-            # )
             send_mail(
                 email_subject,
                 email_body,
