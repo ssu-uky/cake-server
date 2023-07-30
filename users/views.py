@@ -306,7 +306,6 @@ class Logout(APIView):
 
 # 이메일 회원가입 // 이메일 인증 ##
 
-
 class EmailSignUp(APIView):
     def get(self, request):
         return Response({"message": "이름, 이메일, 비밀번호를 입력해주세요."})
@@ -341,10 +340,10 @@ class EmailSignUp(APIView):
             access_token = str(token.access_token)
 
             # 이메일 인증메일 보내기
-            # current_site = get_current_site(request).domain
-            # current_site = "127.0.0.1:8000"
-            current_site = "manage.naekkukae.store"
-            link = "https://" + current_site + "/verify/" + str(token)  # 이메일 인증 링크
+            current_site = "127.0.0.1:8000"
+            link = "http://" + current_site + "/verify/" + str(token)  # 이메일 인증 링크
+            # current_site = "manage.naekkukae.store"
+            # link = "https://" + current_site + "/verify/" + str(token)  # 이메일 인증 링크
             email_subject = "이메일 인증을 완료해주세요."
             email_body = (
                 "안녕하세요." + user.name + "님, 회원이 되어주셔서 감사합니다. \n아래 링크를 클릭하여 이메일 인증을 완료해주세요. \n" + link
@@ -409,8 +408,10 @@ class FindPassword(APIView):
                 )
 
             # 이메일에서 재설정 URL 생성
-            current_site = "naekkukae.store"
-            reset_link = "https://" + current_site + "/login/resetpw/" + str(user.pk)
+            current_site = "127.0.0.1:3000"
+            reset_link = "http://" + current_site + "/login/resetpw/" + str(user.pk)
+            # current_site = "naekkukae.store"
+            # reset_link = "https://" + current_site + "/login/resetpw/" + str(user.pk)
             email_subject = "비밀번호 재설정 메일입니다."
             email_body = (
                 "안녕하세요."

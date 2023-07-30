@@ -37,7 +37,7 @@ class UserAdmin(admin.ModelAdmin):
         ),
     )
 
-    list_display = ("pk", "name", "email", "social_type", "is_admin")
+    list_display = ("pk", "name", "email", "social_type", "is_active", "is_admin")
     list_display_links = ("pk", "social_type", "name", "email")
     list_filter = ("social_type",)
 
@@ -49,7 +49,7 @@ class FeedbackUserAdmin(admin.ModelAdmin):
             "Feedback",
             {
                 "fields": (
-                    "feedback_name",
+                    "feedback_user",
                     "feedback_email",
                     "feedback_content",
                     "feedback_password",
@@ -60,6 +60,6 @@ class FeedbackUserAdmin(admin.ModelAdmin):
         ),
     )
     readonly_fields = ("created_at",)
-    list_display = ("pk", "feedback_name", "created_at","feedback_content")
-    list_display_links = ("pk", "created_at", "feedback_name", "feedback_content")
+    list_display = ("pk", "feedback_user","feedback_email","feedback_content", "created_at",)
+    list_display_links = ("pk", "created_at", "feedback_user", "feedback_content")
     list_filter = ("created_at",)
