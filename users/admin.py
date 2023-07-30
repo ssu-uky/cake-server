@@ -52,7 +52,6 @@ class FeedbackUserAdmin(admin.ModelAdmin):
                     "feedback_name",
                     "feedback_email",
                     "feedback_content",
-                    "feedback_password",
                     "created_at",
                 ),
                 "classes": ("wide",),
@@ -63,8 +62,8 @@ class FeedbackUserAdmin(admin.ModelAdmin):
     list_display = (
         "pk",
         "feedback_name",
-        "feedback_email",
         "feedback_content",
+        "feedback_email",
         "created_at",
     )
     list_display_links = ("pk", "created_at", "feedback_name", "feedback_content")

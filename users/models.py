@@ -50,17 +50,19 @@ class FeedbackUser(CommonModel):
     feedback_name = models.CharField(max_length=7, blank=False)
     feedback_email = models.EmailField(blank=False)
     feedback_content = models.TextField(max_length=50, blank=False)
-    feedback_password = models.CharField(
-        max_length=10,
-        null=False,
-        blank=False,
-        validators=[
-            RegexValidator(
-                regex=r"^[a-z0-9]+$",
-                message="영어 소문자와 숫자만 사용할 수 있습니다.",
-            ),
-        ],
-    )
+    
+    # 로그인 한 유저만 작성 가능하기때문에 password는 안 받아도 될듯
+    # feedback_password = models.CharField(
+    #     max_length=10,
+    #     null=False,
+    #     blank=False,
+    #     validators=[
+    #         RegexValidator(
+    #             regex=r"^[a-z0-9]+$",
+    #             message="영어 소문자와 숫자만 사용할 수 있습니다.",
+    #         ),
+    #     ],
+    # )
     
     created_at = models.DateTimeField(auto_now_add=True)
 
