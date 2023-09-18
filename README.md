@@ -1,6 +1,19 @@
+
 # 프로젝트 소개
 ### 프로젝트 기간 : 3주
+
 ---
+
+> 설치
+1. git clone
+2. python -m venv .venv
+3. source .venv/bin/activate
+
+> 실행
+1. python manage.py runserver
+
+---
+
 # 🎂: 네가 꾸민 케이크 
 
 <https://www.naekkukae.store/>
