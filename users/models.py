@@ -4,12 +4,15 @@ from django.contrib.auth.models import AbstractUser
 from .manager import CustomUserManager
 from common.models import CommonModel
 from django.core.validators import RegexValidator
+import uuid
 
 import re
 from rest_framework.exceptions import ParseError, ValidationError
 
 
 class User(AbstractUser):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
     username = None
 
     name = models.CharField(
@@ -50,7 +53,7 @@ class FeedbackUser(CommonModel):
     feedback_name = models.CharField(max_length=7, blank=False)
     feedback_email = models.EmailField(blank=False)
     feedback_content = models.TextField(max_length=50, blank=False)
-    
+
     # 로그인 한 유저만 작성 가능하기때문에 password는 안 받아도 될듯
     # feedback_password = models.CharField(
     #     max_length=10,
@@ -63,7 +66,7 @@ class FeedbackUser(CommonModel):
     #         ),
     #     ],
     # )
-    
+
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
